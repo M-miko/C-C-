@@ -1,0 +1,33 @@
+#include<stdio.h>
+#include<stdlib.h>
+//堆区  手动申请空间；
+//生命周期  出生: 手动申请时  消亡 ：手动释放
+//使用范围  整个程序
+//栈区的空间是有限的 堆区是很大的
+// malloc（4） 申请4个字节空间
+int *AA();
+int main()
+{  
+	
+	int *p=AA();
+	/*int *p=(int *)malloc(4);
+	*p=100;*/
+	//printf("%d\n",*p);//100
+	//printf("%d\n",*(p+1));//100     改完之后为200
+	printf("%d\n",*p);//100
+	free(p);//只释放一次 首字节的地址；
+	//栈区的空间是有限的 堆区是很大的
+	p=NULL;//避免出现错误；
+    printf("%d\n",*p);//100
+
+return 0;
+}
+int *AA()
+{
+int *p=(int *)malloc(4);//三块空间 两个指针//强制转换
+	*p=100;
+	//int *p=(int *)malloc(sizeof(int)*2);//malloc申请的空间是连续的  有的系统不一样 win16 2   win32 4   win64 8
+	//p[0]=100;
+	//p[1]=200;
+	return p;
+}

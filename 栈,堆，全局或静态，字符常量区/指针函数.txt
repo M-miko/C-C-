@@ -1,0 +1,27 @@
+#include<stdio.h>
+void AA();
+int Add(int a,int b);
+typedef int (*PUFF)(int,int);
+int main()
+{
+	//int (*p)(int,int)=&Add;//通常不这么写int (*p)(int a,int b)=&Add;
+	PUFF p1=&Add;
+	printf("%d\n",p1(1,2));
+  /* void (*p)()= &AA;
+   AA();//函数调用本质   函数地址+参数；  函数的名字就是函数的地址
+   (&AA)();//AA等效于&AA
+   p();
+   (*p)();
+*/
+	return 0;
+}
+void AA()
+{
+printf("AA\n");
+
+}
+int Add(int a,int b)
+{
+
+return a+b;
+}
