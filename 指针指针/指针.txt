@@ -1,0 +1,22 @@
+#include<stdio.h>
+int main()
+{
+	int a=10;
+	int *p=&a;//如何声明一个指针变量：指针指向的类型+*+变量名  int         *p=&a;（重要）
+	          //如何判断指针的类型：去掉变量名剩下的就是类型；                   （重要）
+	char b;
+	char*p1=&b;
+	printf("%p\n",&a);//&a==p、、如果把&a换成p 输出的是p的地址；
+	printf("%p\n",p);
+	printf("%d\n",*p);
+	//p==&a  *p==*&a==a
+	*p=100;
+	printf("%d\n",a);//利用p改a的值；
+	//32位程序指针大小4个字节，64位程序大小8个字节；
+	printf("%d\n",sizeof(int));//占用几个字节（输出）、、8个16进制的数需要4个字节的二进制 开辟空间；
+	printf("%d\n",sizeof(p));//printf("%d\n",sizeof(int*));
+        printf("%d\n",sizeof(b));
+        printf("%d\n",sizeof(p1));
+	         //如何判断一个指针指向的类型：去掉变量的名，再去掉一个*；            （重要）
+return 0;
+}

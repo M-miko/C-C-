@@ -1,0 +1,19 @@
+#include<stdio.h>
+int main()
+{
+	int a=10;
+	char b='a';
+	int *p=&a;
+	char *pp=&b;
+int *ppp=&b;
+//加法 减法 比较
+//指针的偏移 取决于指针的类型
+printf("%p\n",p); //int类型
+printf("%p\n",p+1);
+printf("%p\n",pp);//char类型 一个字节；
+printf("%p\n",pp+1);
+printf("%p\n",ppp);//int 4个字节
+printf("%p\n",ppp+1);
+//指针的偏移与等号的右边无关  与等号左边的指针的类型有关；
+return 0;
+}

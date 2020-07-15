@@ -1,0 +1,12 @@
+#include<stdio.h>
+int main()
+{
+	int a=10;
+	int *p=&a;
+	int*pp=NULL;//当一个指针暂时不知道指向那里时 指向为空；
+	printf("%d\n",*p);
+	printf("%d\n",*(p+1));//永远不要操作不属于本程序的内存；
+	//*(p+1)=100//出错
+	
+	return 0;
+}
