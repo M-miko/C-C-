@@ -1,0 +1,18 @@
+#include<stdio.h>
+unsigned int fun()
+{
+int i=1;
+return *(char *)&i;
+}
+int main()
+{
+	if(fun()==1)
+	{
+	printf("小端\n");
+	}else
+	{
+	printf("大端\n");
+	}
+return 0;
+}
+
