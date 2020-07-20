@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<string.h>
+int MyStrlen(char *str);//用函数便利 字符串的长度
+//字符串  \0结尾的字符数组
+//“\0”==0；
+int main()
+{
+	char str[5]={'a','b','c','d','\0'};//char str[5]={'a','b','c','d'};
+	/////-----------------------------------------------
+	char str1[5]="abcd";    //这两个常用  第一个可以修改；
+	char *str2="abcd";      //            第二个不可以修改
+	/////----------------------------------------------
+	printf("%s\n",str);//放首元素的地址
+	printf("%p\n",str1);//所有带双引号的字符都在字符常量区  （它是拷贝到栈区的字符数组）
+	printf("%p\n",str2);//它存在于字符常量区 不能个体修改
+	printf("%p\n","abcd");//"abcd"在字符常量区所在储存位置首元素地址
+	printf("%p\n","abc");//"abc"不包含于"abcd"结果不和234一样；
+	str1[0]='A';//修改的方法不同
+	str2="Abcd";//
+	printf("%s\n",str1);//Abcd
+	printf("%s\n",str2);//Abcd
+	printf("%d\n",strlen(str1));//4 长度
+	printf("%d\n",sizeof(str1));//5 大小 包括\0;
+	printf("%d\n",strlen(str2));//4
+	printf("%d\n",sizeof(str2));//4
+	printf("%d\n",MyStrlen(str1));#include<stdio.h>
+#include<string.h>
+int MyStrlen(char *str);//用函数便利 字符串的长度
+//字符串  \0结尾的字符数组
+//“\0”==0；
+int main()
+{
+	char str[5]={'a','b','c','d','\0'};//char str[5]={'a','b','c','d'};
+	/////-----------------------------------------------
+	char str1[6]="abcde";    //这两个常用  第一个可以修改；
+	char *str2="abcdef";      //            第二个不可以修改
+	/////----------------------------------------------
+	printf("%s\n",str);//放首元素的地址
+	printf("%p\n",str1);//所有带双引号的字符都在字符常量区  （它是拷贝到栈区的字符数组）
+	printf("%p\n",str2);//它存在于字符常量区 不能个体修改
+	printf("%p\n","abcd");//"abcd"在字符常量区所在储存位置首元素地址
+	printf("%p\n","abc");//"abc"不包含于"abcd"结果不和234一样；
+	str1[0]='A';//修改的方法不同
+	str2="Abcd";//
+	printf("%s\n",str1);//Abcd
+	printf("%s\n",str2);//Abcd
+	printf("%d\n",strlen(str1));//5 长度
+	printf("%d\n",sizeof(str1));//6 大小 包括\0;
+	printf("%d\n",strlen(str2));//4////指针的大小 就是4；
+	printf("%d\n",sizeof(str2));//4////同理；
+	printf("%d\n",MyStrlen(str1));//5
+return 0;
+}
+int MyStrlen(char *str)
+{
+int counst=0;
+while(*str!='\0')
+{
+	counst++;
+	str++;
+
+}
+return counst;
+
+}
+
+return 0;
+}
+int MyStrlen(char *str)
+{
+int counst=0;
+while(*str!='\0')
+{
+	counst++;
+	str++;
+
+}
+return counst;
+
+}
