@@ -1,0 +1,42 @@
+显示就是 ( 类型 ) int a; char c = (char) a; 强制类型转换
+还有四种 , static_cast<类型>(); dynamic_cast<类型>() const_cast<类型>() reinterpret_cast<类型>();
+static_cast<类型>() 静态转换 , 与强制类型转换一样 , 并不能保证安全.
+dynamic_cast<类型>( 变量 ) 动态类型转换 , 一般使用在父类和子类之前.
+CFather *pF = new CSon;
+if( pS ) pS非空
+pS->Func(); 
+CSon* pS = dynamic_cast< CSon *>( pF) ; 将父类指针转换为子类
+dynamic_cast<类型>( 变量 ) 会做类型的检查, 假如父类的指针pF, 指向的是一个子类的对象, 那么 返回一个非空的值, 如果不是, 会返回空
+CFather *pF1 = new CSon1;
+CSon* pS = dynamic_cast< CSon *>( pF1) ;
+pS 就是一个空的
+CSon* pS = static_cast< CSon *>( pF1) ;
+pS 是一个非空的
+if(pS)
+pS->Func(); 
+意义: 很多时候父类指针, 没有办法调用子类成员函数, 子类有特有的虚函数, 可以通过上面dynamic_cast<类型>( 变量 ) 安全的调用子类
+特有方法. (拿到那个对象)
+const_cast<>(); 去常类型转换 , 去掉常类型 意义: 常对象只能调用常函数 , 你想用其他函数 --> 去常转换.
+void fuc( const AA & a)
+a.常函数();
+AA aa = const_cast<AA>(a);
+aa.一般函数();
+reinterpret_cast<>(); 重解释类型转换 AA --> BB 一般的类型转换是不可以的 , 但是 reinterpret_cast<>(); 就可以
+并且甚至 数字和类可以转换 , 他是一个万能转换 , 但是会不会出问题他不管. 意义: 编程很多时候因为类型编译不过, 可以用
+reinterpret_cast<>(); 转换. AA a; int val = reinterpret_cast<int>(a);
+
+
+隐式类型转换 c里可以
+int a= -5 ; unsigned int b = 2;
+if( a + b >1 ) ... else ... 真还是假
+发生隐式类型转换 --> a+b 就是向 unsigned int 转换 (unsigned int)a + b --> 结果就是一个unsigned int --> 特别大的数 >1 
+所以结果是真 ( 补码相加 )
+sizeof( ) --> unsigned int 类型转换的时候要注意 
+int i = 1 ; if( i - 2 < sizeof(int) ) i - 2 < sizeof(int) i-2 会发生类型转换 --> 就会特大 > sizeof(int) 
+计算机运算都是采用补码运算
+std::vector<int>::sizetype --> 无符号整型
+auto nSize = sizeof( int ); --> nSize是一个无符号类型的
+类型转换结果 : 对于 a = b; int a = (int) b;
+1. 赋值操作 a , b 的类型不可能变. b的表达式结果类型变 2. 如果b是小类型 char b; int a = b; 转换过程值不变. a的值和b的相等
+小类型, 保持值不变 3. 如果b是一个大类型 , int b; char a = b; 会发生截断. 3.1 b的值可以+或- a的表示数的个数的整数倍. a可以表示是
+256个数 , b = 300 a = 300 - 256*n = 300 - 256 = 44 char a = 127 + 1 --> -128 a = 127 + 1 -256 = -128
