@@ -1,0 +1,21 @@
+http://c.biancheng.net/cpp/biancheng/view/3297.html
+
+static_cast<类型>(); dynamic_cast<类型>() const_cast<类型>() reinterpret_cast<类型>();
+static_cast<类型>() 静态转换 , 与强制类型转换一样 , 并不能保证安全.
+dynamic_cast<类型>( 变量 ) 动态类型转换 , 一般使用在父类和子类之前.
+CFather *pF = new CSon;
+if( pS ) pS非空
+pS->Func(); 
+CSon* pS = dynamic_cast< CSon *>( pF) ; 将父类指针转换为子类
+dynamic_cast<类型>( 变量 ) 会做类型的检查, 假如父类的指针pF, 指向的是一个子类的对象, 那么 返回一个非空的值, 如果不是, 会返回空
+CFather *pF1 = new CSon1;
+CSon* pS = dynamic_cast< CSon *>( pF1) ;
+pS 就是一个空的
+CSon* pS = static_cast< CSon *>( pF1) ;
+pS 是一个非空的
+if(pS)
+pS->Func(); 
+意义: 很多时候父类指针, 没有办法调用子类成员函数, 子类有特有的虚函数, 可以通过上面dynamic_cast<类型>( 变量 ) 安全的调用子类
+特有方法. (拿到那个对象)
+const_cast<>(); 去常类型转换 , 去掉常类型 意义: 常对象只能调用常函数 , 你想用其他函数 --> 去常转换.
+void fuc( const AA & a)

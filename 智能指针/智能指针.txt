@@ -1,0 +1,136 @@
+智能指针 auto_ptr unique_ptr shared_ptr weak_ptr
+C++ 提供的封装 使用的时候, 可以类似于使用对象来控制指针. 对象可以构造和析构的. 而且可以自动回收. 内存泄露
+如果是那种经常反复申请空间的, 不是常驻的, 要注意回收, 不然空间越占用越大, 会使程序崩溃.
+使用智能指针一定程度, 避免手动回收, 从而方便编程.
+智能指针的类型 : auto_ptr , unique_ptr , shared_ptr , weak_ptr , 他们都是STL里的.
+auto_ptr 是C++98标准里的, 由于设计有缺陷, 现在C++11已经舍弃了.
+class AA
+{
+AA(const string s)
+str= s;
+cout<<"AA()"<<endl;
+{}
+~AA()
+cout<< "~AA()"<<endl;
+{}
+public:
+ 分区 0724 的第 14 页 
+}
+void say()
+cout<<str<<endl;
+{}
+string str;
+private:
+};
+智能指针 : 头文件 #include<memory>
+int main()
+//初始化指针指针 auto_ptr
+//方法1
+std::auto_ptr<AA> ap1(new AA("using auto_ptr")); //ap1 就是智能指针
+ap1->say(); //对象生命结束, 指针回收对象是自动的.
+{}
+system("pause");
+return 0;
+{}
+unique_ptr
+std::unique_ptr<AA> up1( new AA("using unique_ptr1"));
+{
+//unique_ptr 初始化
+std::unique_ptr<AA> up2;
+up2.reset( new AA("using unique_ptr2") ); //会释放原来空间
+// make_unique<>() 
+up1->say();
+//up2->say(); get方法 up1 和up1.get() 是一样的
+up2.get()->say();
+//不同的点 : unique_ptr 要求对象所属的智能指针必须唯一. 
+//不可以两个指针指向同一个对象
+//std::unique_ptr<AA> up3 = up1; // 不可以
+std::unique_ptr<AA> up3;
+//把使用权交出去 必须显式的使用, 不会像auto_ptr 莫名的就把空间交出去
+up3 = std::move(up1); //将up1对象 交给up3 , up1 就空了, 不要再用了
+// up3 = up1; //赋值也是不可以的. 
+up3->say();
+//up1->say(); //up1 空了, 不要再用了
+}
+shared_ptr
+// 不同的点: shared_ptr --> 引用计数 来控制对象的回收 , 引用计数归0 才回收
+//想要回收 , 可以使用weak_ptr , 使用它 , 引用计数不加1
+class AA
+{
+AA(const string s)
+str= s;
+cout<<"AA()"<<endl;
+{}
+public:
+ 分区 0724 的第 15 页 
+}
+~AA()
+cout<< "~AA()"<<endl;
+{}
+void say()
+cout<<str<<endl;
+{}
+string str;
+private:
+};
+class BBBB;
+class AAAA
+{
+AAAA()
+cout<<"AAAA()"<<endl;
+{}
+~AAAA()
+cout<<"~AAAA"<<endl;
+{}
+//shared_ptr<BBBB> spb;
+weak_ptr<BBBB> spb;
+public:
+};
+class BBBB
+{
+BBBB()
+cout<<"BBBB()"<<endl;
+{}
+~BBBB()
+cout<<"~BBBB"<<endl;
+{}
+shared_ptr<AAAA> spa;
+public:
+};
+int main()
+//shared_ptr 初始化
+std::shared_ptr<AA> sp1( new AA("using shared_ptr1"));
+{ {
+std::shared_ptr<AA> sp2;
+sp2.reset( new AA("using shared_ptr2") ); //会释放原来空间
+// make_unique<>() 
+// make_shared<>()
+std::shared_ptr<AA> sp3;
+ 分区 0724 的第 16 页 
+std::shared_ptr<AA> sp3;
+sp3 = make_shared<AA>("using shared_ptr3");
+sp1->say();
+//sp2->say(); get方法 sp1 和sp1.get() 是一样的
+sp2.get()->say();
+sp3->say();
+std::shared_ptr<AA> sp4;
+sp4 = sp1; //指向同一个空间
+sp4->say();
+sp1->say(); //可以同时使用
+cout<< "using count:"<<sp1.use_count() <<endl; //2
+{}
+cout<< "using count:"<<sp1.use_count() <<endl;//1
+}
+cout<<"---------------------"<<endl;
+// 问题: 循环引用
+shared_ptr<AAAA> pAA(new AAAA);
+shared_ptr<BBBB> pBB(new BBBB);
+pAA->spb = pBB; //spb改成 weak_ptr 引用计数不加1
+pBB->spa = pAA;
+cout<< "pAA using count:"<<pAA.use_count()<<endl;
+cout<< "pBB using count:"<<pBB.use_count()<<endl;
+{
+}//没有回收
+system("pause");
+return 0;
+}
