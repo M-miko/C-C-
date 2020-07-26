@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+//空类的大小是 1个字节,占位的
+// 成员变量， 创建对象分配空间，每个对象都有自己的一份
+// 成员函数， 编译的时候放到代码区，只有一个。
+
+class CPerson
+{
+public:
+	int m_nAge;
+public:
+	CPerson(int nAge)
+	{
+		m_nAge = nAge;
+	}
+public:
+	void Show(/* CPerson* this */)   //  this 装调用者的对象的地址，完成的封装
+	{
+		cout << this << endl;
+		cout << this->m_nAge << endl;
+	}
+};
+
+int main()
+{
+	cout << sizeof(CPerson) << endl;
+
+	CPerson ps1(100);
+	cout << &ps1 << endl;
+	ps1.Show(/* &ps1 */);
+
+
+	CPerson ps2(200);
+	cout << &ps2 << endl;
+	ps2.Show(/* &ps2 */);
+            //先运行构造 在运行函数
+	system("pause");
+	return 0;
+}

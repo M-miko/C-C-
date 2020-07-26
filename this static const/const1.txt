@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+
+class CPerson
+{
+public:
+	const int m_nAge;    //  cosnt 变量 要在初始化列表中初始化
+	int m_nSex;
+public:
+	CPerson():m_nAge(100)   //  初始化列表，用来给成员属性初始化
+	{
+		cout << m_nAge << endl;
+	}
+public:
+	void Show(/* CPerson* this = const CPerson* */) 
+	{
+		m_nSex = 200;
+		cout << m_nAge << endl;
+	}
+	void ShowShow(/* const CPerson* this = const CPerson* */) const    //  常函数 
+	{
+		//this->m_nSex = 200;   //  常函数 不能修改类中的 成员属性,因为this指针已经变成 const
+		cout << this->m_nSex << endl;
+		cout << this->m_nAge << endl;
+	}
+};
+
+int main()
+{
+	const CPerson ps;        //  const对象 只能使用const函数
+	ps.Show(/* const CPerson* */);
+	ps.ShowShow(/* const CPerson* */);
+
+
+
+
+
+
+	system("pause");
+	return 0;
+}

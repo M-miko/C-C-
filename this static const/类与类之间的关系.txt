@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+
+class CHead
+{
+public:
+	void Say()
+	{
+		cout << "张个大嘴，哇啦哇啦" << endl;
+	}
+};
+
+class CHand
+{
+public:
+	void Move()
+	{
+		cout << "比比划划" << endl;
+	}
+};
+
+class CPerson
+{
+public:
+	CHead head;    //  组合
+	CHand hand;
+public:
+	void Say()
+	{
+		head.Say();
+		hand.Move();
+	}
+};
+
+int main()
+{
+
+	CPerson ps;
+	ps.Say();
+
+	system("pause");
+	return 0;
+}

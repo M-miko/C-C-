@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+class CPerson
+{
+public:
+	static int a;   //  编译期存在， 所有对象共享
+	int b;
+public:
+	static void Show()   //  静态函数 只能用static成员,因为static函数没有this指针
+	{
+		//cout << b << endl;
+		cout << a << endl;
+	}
+};
+
+int CPerson::a = 100;   //  static 成员变量  在类外初始化
+
+int main()
+{
+	cout << CPerson::a << endl;  //  可以通过 类名::变量名  使用   
+	CPerson::Show();
+
+
+	CPerson ps;
+	cout << ps.a << endl;
+
+
+	system("pause");
+	return 0;
+}

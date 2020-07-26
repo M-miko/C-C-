@@ -1,0 +1,76 @@
+#include <iostream>
+using namespace std;
+
+class CPerson
+{
+public:
+	int m_nAge;
+	int m_nSex;
+public:
+	CPerson(int a):m_nAge(m_nSex),m_nSex(a)   // 初始化列表执行的顺序，是变量定义顺序
+	{
+	
+	}
+public:
+	void Show()
+	{
+		cout << m_nAge << " " << m_nSex << endl;
+	}
+};
+
+int main()
+{
+
+	CPerson ps(10);
+	ps.Show();
+
+
+	system("pause");
+	return 0;
+}
+
+
+-------------------------成员是对象-----------------------------------
+#include <iostream>
+using namespace std;
+
+
+
+
+class CPerson
+{
+public:
+	//CPerson ps;   //  自身的对象不能定义
+	//CPerson* p;   //  定义自身的指针可以
+};
+
+
+class CChina
+{
+public:
+	CChina(int a)
+	{
+	
+	}
+};
+
+class CPerson
+{
+public:
+	CChina cn;
+public:
+	CPerson():cn(123)   //  指定执行这个对象的构造函数，需要在初始化列表中
+	{
+	
+	}
+};
+
+
+int main()
+{
+	CPerson ps;
+
+
+	system("pause");
+	return 0;
+}
