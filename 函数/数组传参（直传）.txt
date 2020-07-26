@@ -1,0 +1,49 @@
+#include<stdio.h>
+void Printfarr();
+void Printfarr1(int arr[],int length);//[] int arr[]==int *arr
+                                                     //[]数组长度
+                                                     //[]移位 + 间接引用
+int main()
+{
+	int arr[]={1,2,3,4,56,7,8,};
+	//Printfarr();
+	Printfarr1(arr,sizeof(arr)/sizeof(arr[0]));//实参向形参赋值的过程
+return 0;
+}
+void Printfarr()
+{
+	int arr[]={1,2,3,4,5,6,7,8,9,0};
+	int i;
+	for(i=0;i<10;i++)//for(i=0;i<sizeof(arr)/sizeof(arr[0]);i++)
+	{
+	printf("%d\n",arr[i]);
+	
+	}
+
+}
+
+void Printfarr1(int arr[],int length)
+{
+int i;
+
+	for(i=0;i<length;i++)
+	{
+	printf("%d\n",arr[i]);
+	
+	}
+
+}
+
+
+////错误案列 因为 int arr[]=int *arr 首元素四个字节 所以si/si=1 x循环一次
+//void Printfarr1(int arr[])
+//{
+//int i;
+//
+//	for(i=0;i<sizeof(arr)/sizeof(arr[0]);i++)
+//	{
+//	printf("%d\n",arr[i]);
+//	
+//	}
+//
+//}

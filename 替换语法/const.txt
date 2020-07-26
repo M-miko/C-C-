@@ -1,0 +1,30 @@
+#include<stdio.h>
+int main()
+{
+	////const 修饰一个只读变量 
+	//const int a=10;
+	////a=1;
+	//int *p=&a;
+	//*p=1000;
+
+
+	int b=1999;
+	int c=1;
+	int const *p1=&b;//在*号左边 *p不能改 p可以改//const int *p1一样
+	int * const p2=&b; //*号右边 *p可以改 p不可以改
+	const int *const p3&b;//在*号的两边 *p和p 都不可以修改
+
+	/*p1=&c;
+	*p1=1;
+*/
+	/*p2=&c;
+	*p2=1;*/
+	/*p3=&c;
+	*p3=1*/
+
+printf("%d\n",*p);
+
+
+return 0;
+}
+

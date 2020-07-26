@@ -1,0 +1,26 @@
+#include<stdio.h>
+//宏：单纯的替换
+//#define + 宏的名字 +替换的内容（不要加；）
+#define a printf("hello\n");	
+#define b a a a a a a a a a a a
+#define c b b b b b b b b b b b
+#define d c c c c c c c c c c c
+#define UINT unsigned int
+#define dou ;
+#define ADD(e,f)  e+f//不需要分号；
+#define NUL(g,h) (g)*(h) // 42//  #define NUL(g,h) g*h    15
+//int a(int g, int h)
+//{
+//return g*h;//42
+//}
+#define SUM(a) sizeof(a)/sizeof(a[0])
+int main()
+{
+	int arr[]={1,2,44,56,7,7,4,5,76,5,};
+	UINT t dou
+	printf("%d\n",ADD(2,3));
+	printf("%d\n",NUL(2+4,2+5));
+	printf("%d\n",SUM(arr));
+	//d;
+return 0;
+}

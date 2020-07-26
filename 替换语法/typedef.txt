@@ -1,0 +1,14 @@
+#include<stdio.h>
+//typedef 给已有的类型起一个别名
+//typedef + 类型+别名；
+typedef unsigned int UINT;
+typedef int* AA;
+
+int main()
+{
+	UINT a;
+
+	AA p1,p2;//p1和p2都是指针 AA是个整型
+	return 0;
+}
+

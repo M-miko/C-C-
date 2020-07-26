@@ -1,0 +1,53 @@
+#include<stdio.h>
+void Myprintf();
+//函数：对步骤的封装
+//声明函数
+//返回值+函数名+参数+；
+//int char int* void(没有返回值)
+//函数名不能跟系统函数重名；
+int Add();
+int Add1(int a,int b);
+//参数 n个 参数之间的类型不限；
+int Null(int ,int );//可以不声明变量；
+int main()
+{
+	int n=Add();
+	//函数调用
+	//函数名+具体参数+；
+//Myprintf();
+	//有返回值 不一定要使用；
+	//printf("%d\n",Add());
+	//遇到return 就结束；
+	//return 后面可以加常量 也可以是变量；
+	printf("%d\n",Add1(1,n));//实参
+	printf("%d\n",Add1(1+1,n+1));
+	printf("%d\n",Add1(1,Add()));
+	printf("%d\n",2+2,4+4);//a=2+2;b=2+2  是赋值 不同于宏
+return 0;
+}
+//实现函数
+//返回值+函数名++参数；
+//{  
+    //具体封装步骤；
+//return 直接结束本次函数；
+//}
+void Myprintf()
+{
+printf("Hello\n");
+
+return;
+}
+int Add()
+{
+int a=1;
+int b=2;
+return a+b;
+}
+int Add1(int a,int b)//形参
+{
+return a+b;
+}
+int Null(int a,int b)
+{
+ return a*b;
+}

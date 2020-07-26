@@ -1,0 +1,19 @@
+#include<stdio.h>
+int main()
+{
+	int i;
+	int arr[5]={10,20,30,40,50};
+	int (*pp)[5]=&arr;
+	int *p=arr;
+	//printf("%d\n",*(pp+1));//跳到下一个数组；
+	for(i=0;i<5;i++)
+	{
+	printf("%d\n",*(p+i));//如果是*p+1;结果会变为10 11 12 13 14；
+         // printf("%d\n",*(*pp+i));
+	//printf("%d\n",*(arr+i));
+	//printf("%d\n",*(*&arr+i));
+          printf("%d\n",pp[0][i]);
+	}
+
+return 0;
+}

@@ -1,0 +1,18 @@
+#include<stdio.h>
+int main()
+{
+	int i;
+	int arr[5]={10,20,30,40,50};
+	int (*pp)[5]=&arr;
+	int *p=arr;
+	for(i=0;i<5;i++)
+	{
+	//printf("%d\n",*(p+i))£»
+          printf("%d\n",*(*pp+i));
+	//printf("%d\n",*(arr+i));
+	//printf("%d\n",*(*&arr+i));
+          printf("%d\n",(&arr)[0][i]);
+	}
+
+return 0;
+}

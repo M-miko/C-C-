@@ -1,0 +1,41 @@
+#include<stdio.h>
+void Change(int,int);//形参
+//int main()
+//{
+//	int a=1;
+//	int b=2;
+//	Change(a,b);//实参     实参向形参赋值的过程 int a=1；int b=2 
+//
+//return 0;
+//}
+//
+//void Change(int a,int b)
+//{
+//a=a^b;
+//b=a^b;
+//a=a^b;
+//printf("a=%d  b=%d\n",a,b);
+//}
+void Change2(int* p1,int *p2);//地址传递    修改参数的值
+int main()                    //直传递     参数进行计算
+{
+	int a=1;
+	int b=2;
+
+	//int *p=&a
+	//此时需要二级指针；
+	Change2(&a,&b);//实参     实参向形参赋值的过程 int a=1；int b=2 
+	printf("%d %d\n",a,b);
+return 0;
+}
+
+void Change2(int *p1,int *p2)
+{
+int temp=*p1;
+*p1=*p2;
+*p2=temp;
+//*p1=*p1^*p2;
+//*p2=*p1^*P2;
+//*p1=*p1^*p2;
+
+}
