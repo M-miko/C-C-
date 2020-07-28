@@ -1,0 +1,178 @@
+#include <iostream>
+#include <time.h>
+using namespace std;
+
+
+class CHead
+{
+public:
+	void Say()
+	{
+		cout << "张个大嘴，哇啦哇啦" << endl;
+	}
+};
+
+class CHand
+{
+public:
+	void Move()
+	{
+		cout << "比比划划" << endl;
+	}
+};
+
+class CComputer
+{
+public:
+	void Coding()
+	{
+		cout << "C++ Coding....." << endl;
+	}
+};
+
+class CFriend
+{
+public:
+	int rp;
+public:
+	CFriend()
+	{
+		rp = rand()%10;
+	}
+public:
+	void Play()
+	{
+		cout << "哈哈哈哈哈哈" << endl;
+	}
+};
+
+
+
+class CPerson
+{
+public:
+	CHead head;    //  组合
+	CHand hand;
+	CFriend* m_pFriend;   //  关联一个朋友
+public:
+	CPerson()
+	{
+		m_pFriend = 0;
+	}
+public:
+	void FindFriend(CFriend* pFriend)
+	{
+		if(pFriend == 0)
+			return;
+
+		if(pFriend->rp > 4)
+		{
+			m_pFriend = pFriend;
+		}
+	}
+	void LOL()
+	{
+		if(m_pFriend == 0)
+		{
+			cout << "~~~~(>_<)~~~~完的不开心" << endl;
+		}
+		else
+		{
+			cout << "点根烟了" << endl;
+			m_pFriend->Play();
+		}
+	}
+	void Say()
+	{
+		head.Say();
+		hand.Move();
+	}
+	void Coding(CComputer& cm)   //  依赖一个电脑
+	{
+		head.Say();
+		cm.Coding();
+	}
+};
+
+
+
+class CFamily
+{
+public:
+	CPerson* pArr[5];    //  聚合到 家庭中
+public:
+	CFamily()
+	{
+		for(int i=0;i<5;i++)
+			pArr[i] = 0;
+	}
+	~CFamily()
+	{
+		for(int i=0;i<5;i++)
+		{
+			if(pArr[i] != 0)
+			{
+				delete pArr[i];
+				pArr[i] = 0;
+			}
+		}
+	}
+public:
+	void PushPerson(CPerson* ps)
+	{
+		if(ps == 0)
+			return;
+		for(int i=0;i<5;i++)
+		{
+			if(pArr[i] == 0)
+			{
+				pArr[i] = ps;
+				return;
+			}
+		}
+	}
+	void AllPersonCoding(CComputer& cm)
+	{
+		for(int i=0;i<5;i++)
+		{
+			if(pArr[i] != 0)
+			{
+				pArr[i]->Coding(cm);
+			}
+		}		
+	}
+};
+
+
+
+
+int main()
+{
+
+	//srand((unsigned int)time(0));
+
+	//CComputer cm;
+	//CFriend ff;
+
+	//CPerson ps;
+	//ps.Say();
+	//ps.Coding(cm);
+
+	//ps.FindFriend(&ff);
+	//ps.LOL();
+
+	//--------------------------------------------------
+	CPerson* ps1 = new CPerson;
+	CPerson* ps2 = new CPerson;
+	CPerson* ps3 = new CPerson;
+
+	CComputer cm;
+	CFamily fm;
+	fm.PushPerson(ps1);
+	fm.PushPerson(ps2);
+	fm.PushPerson(ps3);
+	fm.AllPersonCoding(cm);
+
+	system("pause");
+	return 0;
+}
