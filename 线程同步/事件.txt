@@ -1,0 +1,39 @@
+HANDLE m_hEvent;
+m_hEvent=createEvent(NULL//安全属性
+,FALSE//自动   TRUE  人工的  ReSetEvent(pthis->m_hEvent);变为无信号
+,TRUE//有信号
+NULL//名字 是否跨平台
+
+)
+
+//使用
+while(pthis->m_bFlagQuit)
+	{
+		if(pthis->m_nTicket ==0)
+		{
+			str.Format(_T("%d没票了"),GetCurrentThreadId());
+			pthis->m_lstbox.AddString(str);
+			break;
+		}
+		
+		
+                            
+		
+                                //旋转锁+异步   等一会进 进不去就走
+                              if(WAIT_TIMEOUT == WaitForSingleObject(pthis->m_hEvent,100))
+			continue;	
+		if(pthis->m_nTicket ==0)
+		{
+			str.Format(_T("%d没了"),GetCurrentThreadId());
+			pthis->m_lstbox.AddString(str);
+                           //将事件变为有信号
+			SetEvent(pthis->m_hEvent);
+			
+			break;
+		}
+		str.Format(_T("%d正在卖第%d张票"),GetCurrentThreadId(),pthis->m_nTicket);
+		pthis->m_nTicket--;
+		SetEvent(pthis->m_hEvent);
+		
+		pthis->m_lstbox.AddString(str);
+	}

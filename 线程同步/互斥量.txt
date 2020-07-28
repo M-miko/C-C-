@@ -1,0 +1,47 @@
+内核对象
+HANDLE m_hMutex; 
+m_hMutex = CreateMutex(NULL,  //安全属性
+		                   TRUE, //初始拥有权（本线程）需要释放   //false  其他行程去抢 开始不需要释放
+			   NULL   //名字  每个内核名字独一无二 可以跨进程
+		);
+-------------------------------
+是true 的时候 需要
+ReleaseMutex(pthis->m_hMutex);
+-------------------------------------
+WaitForSingleObject(pthis->m_hMutex,ININT)
+内容
+ReleaseMutex(pthis->m_hMutex);
+
+//使用
+while(pthis->m_bFlagQuit)
+	{
+		if(pthis->m_nTicket ==0)
+		{
+			str.Format(_T("%d没票了"),GetCurrentThreadId());
+			pthis->m_lstbox.AddString(str);
+			break;
+		}
+		
+		Sleep(10);
+		//相当于直接阻塞 关键段 
+		WaitForSingleObject(pthis->m_hMutex,INFININTE)
+                               //异步 能进就进
+		if(WAIT_TIMEOUT == WaitForSingleObject(pthis->m_hMutex,0))
+			continue;	
+                                //旋转锁+异步   等一会进 进不去就走
+                              if(WAIT_TIMEOUT == WaitForSingleObject(pthis->m_hMutex,100))
+			continue;	
+		if(pthis->m_nTicket ==0)
+		{
+			str.Format(_T("%d没了"),GetCurrentThreadId());
+			pthis->m_lstbox.AddString(str);
+			ReleaseMutex(pthis->m_hMutex);
+			
+			break;
+		}
+		str.Format(_T("%d正在卖第%d张票"),GetCurrentThreadId(),pthis->m_nTicket);
+		pthis->m_nTicket--;
+		ReleaseMutex(pthis->m_hMutex);
+		
+		pthis->m_lstbox.AddString(str);
+	}

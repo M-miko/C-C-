@@ -1,0 +1,73 @@
+CRITICAL_SECTION  m_cs;定义结构体
+InitializeCriticalSection(&m_cs); 初始化  构造函数里面
+//其他线程 由内核使线程是运行态  变成阻塞态  ，等到锁里面没有人 cpu在给他时间轮换片
+//使他变为运行态 进入锁内  
+EnterCriticalSection(&pthis->m_cs);
+内容
+LeaveCriticalSection(&pthis->m_cs);
+DeleteCriticalSection(&m_cs);删除锁
+      1)直接阻塞 2）旋转锁 3）异步
+                 1直接等待进不去就阻塞       2进去前睡一会，进不去再阻塞
+                 3常试往里进进不去就不进
+1直接阻塞
+EnterCriticalSection(&pthis->m_cs);
+内容
+LeaveCriticalSection(&pthis->m_cs);
+2旋转锁
+sleep(10);
+EnterCriticalSection(&pthis->m_cs);
+内容
+LeaveCriticalSection(&pthis->m_cs);
+3异步
+if(!TryEnterCriticalSection(&pthis->m_cs))
+{
+continue;找其他厕所
+}
+内容
+LeaveCriticalSection(&pthis->m_cs);
+
+//线程强制退出的坏处
+如果一个线程强制杀死  里面的锁不会退出 造成错误 谁都不能访问
+//进程和线程的关系
+//退出或杀死一个线程不会照成进程退出   除非是最后一个线程或者调用exit（0）（j进程退出函数）
+while(pthis->m_bFlagQuit)
+	{
+		if(pthis->m_nTicket ==0)
+		{
+			str.Format(_T("%d没票了"),GetCurrentThreadId());
+			pthis->m_lstbox.AddString(str);
+			break;
+		}
+		
+		Sleep(10);
+		
+		if(pthis->m_nTicket ==0)
+		{
+			str.Format(_T("%d没了"),GetCurrentThreadId());
+			pthis->m_lstbox.AddString(str);
+			
+			break;
+		}
+////////-----------------------------------------------------------
+                    EnterCriticalSection(&pthis->m_cs);
+                          if(pthis->m_nTicket ==0)
+		{
+			str.Format(_T("%d没了"),GetCurrentThreadId());
+			pthis->m_lstbox.AddString(str);
+			LeaveCriticalSection(&pthis->m_cs);//一定要出去
+			break;
+		}
+		str.Format(_T("%d正在卖第%d张票"),GetCurrentThreadId(),pthis->m_nTicket);
+		pthis->m_nTicket--;
+		
+		LeaveCriticalSection(&pthis->m_cs);
+//-------------------------------------------------------------------------
+                          //容易出现负数 最后一张票 两个人同时阻塞在这里  当一个人买完票 另一个也会继续去卖票
+                         //就会出现负数  解决方法如上
+                               EnterCriticalSection(&pthis->m_cs);
+		str.Format(_T("%d正在卖第%d张票"),GetCurrentThreadId(),pthis->m_nTicket);
+		pthis->m_nTicket--;
+		
+		LeaveCriticalSection(&pthis->m_cs);
+		//InterlockedDecrement(&pthis->m_nTicket);
+		pthis->m_lstbox.AddString(str);

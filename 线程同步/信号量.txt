@@ -1,0 +1,41 @@
+HANDLE m_hSemaphore;
+m_hSemaphore;=createSemaphore(NULL//安全属性
+,0//初始 释放信号量的个数
+,10//允许释放的的最大数量 如果超过则无效  
+NULL//名字 是否跨平台
+
+)
+//ReleaseSemaphore（m_hSemaphore,4,NULL)；
+//ReleaseSemaphore（m_hSemaphore,4,NULL)；
+//ReleaseSemaphore（m_hSemaphore,4,NULL)；
+10个有效
+//使用
+while(pthis->m_bFlagQuit)
+	{
+		if(pthis->m_nTicket ==0)
+		{
+			str.Format(_T("%d没票了"),GetCurrentThreadId());
+			pthis->m_lstbox.AddString(str);
+			break;
+		}
+		
+		
+                            
+		if(WAIT_TIMEOUT == WaitForSingleObject(pthis->m_hSemaphore,100))
+			continue;	
+                              
+         
+		if(pthis->m_nTicket ==0)
+		{
+			str.Format(_T("%d没了"),GetCurrentThreadId());
+			pthis->m_lstbox.AddString(str);
+                                               ReleaseSemaphore（m_hSemaphore,1,NULL)；
+			
+			break;
+		}
+		str.Format(_T("%d正在卖第%d张票"),GetCurrentThreadId(),pthis->m_nTicket);
+		pthis->m_nTicket--;
+		  ReleaseSemaphore（m_hSemaphore,1,NULL)；
+		
+		pthis->m_lstbox.AddString(str);
+	}
