@@ -1,0 +1,76 @@
+异步选择：向windows注册网络事件，当网络事件发生时，向用户发送消息。
+异步事件：向windows注册网络事件，当网络事件发生时，将事件置为有信号
+异步事件最佳
+单线程 处理多个事件 最多64个
+1被动通知
+2 事件 性能较优
+3 个数限制--单线程64 
+4 阻塞模型（从内核模式向用户模式拷贝数据阻塞）  有阻塞一般都为同步
+1想windows注册网络事件
+WSAEventSelect();
+      //向windows里注册消息
+	WSAEVENT we=WSACreateEvent();//人工无信号事件
+	if(!WSAEventSelect(m_sockListen,we,FD_ACCEPT||FD_CLOSE))//将事件置为有信号
+	{
+		arySocketWaiter[SocketNum]=m_sockListen;
+		aryEvent[SocketNum]=we;
+		SocketNum++;
+
+	}
+	////accept--线程
+	m_hThread = (HANDLE)_beginthreadex(0,0,&ThreadProc,this,0,0);
+	if(m_hThread)
+		m_lstThread.push_back(m_hThread);
+unsigned  __stdcall TCPNet::ThreadProc( void * lpvoid)
+{
+	TCPNet *pthis = (TCPNet*)lpvoid;
+
+	SOCKET socketWaiter;
+
+	DWORD Idex;
+	WSANETWORKEVENTS we;
+	while(pthis->m_bFlagQuit)
+	{
+		int nRelReadNum;
+		char szbuf[1024] = {0};
+		//等多个事件信号 返回有信号事件 最多等64 个
+		Idex=WSAWaitForMultipleEvents(pthis->SocketNum,pthis->aryEvent,FALSE,WSA_INFINITE,NULL);//事件个数 事件数组 Flase等一个信号就返回  一直等
+
+		Idex-=WSA_WAIT_EVENT_0;//发生事件的索引                                                                     True 全部信号在返回
+		//查看什么事件发生 并将事件置为无信号
+		if(WSAEnumNetworkEvents(pthis->arySocketWaiter[Idex],pthis->aryEvent[Idex],&we))
+			continue;//枚举事件
+		if(we.lNetworkEvents&FD_ACCEPT)
+		{
+			socketWaiter = accept(pthis->arySocketWaiter[Idex],0,0);
+			if(socketWaiter)
+			{
+				//向windows注册 SocketWaiter hEvent fd_read
+				WSAEVENT we=WSACreateEvent();//人工无信号
+				if(!WSAEventSelect(socketWaiter,we,FD_READ))
+				{
+					pthis->arySocketWaiter[pthis->SocketNum]=socketWaiter;
+					pthis->aryEvent[pthis->SocketNum]=we;
+					pthis->SocketNum++;
+
+				}
+			}
+		}
+		if(we.lNetworkEvents&FD_READ)
+		{
+
+			nRelReadNum = recv(pthis->arySocketWaiter[Idex],szbuf,sizeof(szbuf),0);
+			if(nRelReadNum>0)
+			{
+
+			}
+
+		}
+
+
+
+
+	}
+
+	return 0;
+}

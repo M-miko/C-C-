@@ -1,0 +1,73 @@
+缺点 ：有延迟 
+单线程 处理多个事件
+SOCKET arySocketWaiter[MAXNUM];
+int SocketNum;
+windows 默认64个
+//accept--线程
+	m_hThread = (HANDLE)_beginthreadex(0,0,&ThreadProc,this,0,0);
+	if(m_hThread)
+		m_lstThread.push_back(m_hThread);
+	//接收数据
+	m_hThread = (HANDLE)_beginthreadex(0,0,&ThreadRecv,this,0,0);
+	if(m_hThread)
+		m_lstThread.push_back(m_hThread);
+
+unsigned  __stdcall TCPNet::ThreadProc( void * lpvoid)
+{
+	TCPNet *pthis = (TCPNet*)lpvoid;
+	unsigned uThreadid;
+	SOCKET socketWaiter;
+	HANDLE hThread;
+	while(pthis->m_bFlagQuit)
+	{
+		//等待客户端链接 --同步非阻塞+多线程
+		socketWaiter = accept(pthis->m_sockListen,0,0);
+		if(socketWaiter)
+		{
+			u_long argp=1;
+			//改变socket属性 
+			ioctlsocket(socketWaiter,FIONBIO,&argp);
+			pthis->arySocketWaiter[pthis->SocketNum]=socketWaiter;
+			pthis->SocketNum++;
+		
+		}
+		//为客人创建一个线程
+		/*hThread = (HANDLE)_beginthreadex(0,0,&ThreadRecv,pthis,0,&uThreadid);
+		if(hThread)
+		{
+			pthis->m_mapThreadIDToSocket[uThreadid] =socketWaiter; 
+			pthis->m_lstThread.push_back(hThread);
+		}*/
+		
+	}
+	
+	return 0;
+}
+unsigned  __stdcall TCPNet::ThreadRecv( void * lpvoid)
+{
+	TCPNet *pthis = (TCPNet*)lpvoid;
+	pthis->RecvData();
+	return 0;
+}
+void TCPNet::RecvData()
+{
+	//SOCKET sockWaiter = m_mapThreadIDToSocket[GetCurrentThreadId()];
+	int nPackSize;
+	int nRelReadNum;
+	char szbuf[1024] = {0};
+	while(m_bFlagQuit)
+	{
+		for(int i=0;i<SocketNum;i++)
+		{
+			
+			if(nRelReadNum = recv(arySocketWaiter[i],szbuf,sizeof(szbuf),0))
+			{
+			
+			
+			}
+		 //处理
+
+		}
+		Sleep(10);
+	}
+}
