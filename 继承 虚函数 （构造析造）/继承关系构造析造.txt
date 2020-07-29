@@ -1,0 +1,41 @@
+//--------------------------------------------------
+#include <iostream>
+using namespace std;
+
+
+class CPerson    
+{
+public:
+	CPerson(int a)
+	{
+		cout << "CPerson()" << endl;
+	}
+	~CPerson()
+	{
+		cout << "~CPerson()" << endl;
+	}
+};
+
+class CSon : public CPerson
+{
+public:
+	CSon():CPerson(100)    //  派生类的构造函数初始化列表 会调用父类的构造
+	{
+		cout << "CSon()" << endl;
+	}
+	~CSon()
+	{
+		cout << "~CSon()" << endl;
+	}
+};
+
+int main()
+{
+	{
+		CSon son;
+	}
+
+
+	system("pause");
+	return 0;
+}

@@ -1,0 +1,43 @@
+//--------------------------------------------------
+#include <iostream>
+using namespace std;
+
+class CPerson    
+{
+public:
+	int a;
+};
+
+class CSon1 : public CPerson
+{
+public:
+	int b;
+};
+
+class CSon2 : public CPerson
+{
+public:
+	int b;
+};
+
+class CSon3 : public CPerson 
+{
+public:
+	int b;
+};
+
+struct Node
+{
+	CPerson* ps;
+};
+
+int main()
+{
+	CPerson* p1 = new CSon1;    //  缺点:只能使用父类的成员, 优点: 提高代码的复用性
+	CPerson* p2 = new CSon2;
+	CPerson* p3 = new CSon3;
+
+
+	system("pause");
+	return 0;
+}

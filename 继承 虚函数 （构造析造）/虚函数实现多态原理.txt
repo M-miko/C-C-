@@ -1,0 +1,67 @@
+//--------------------------------------------------
+#include <iostream>
+using namespace std;
+//虚函数就存虚函数
+//当创建一个父类指针指向子类对象时 用虚函数就会实现多态
+//每个类中都含有一个虚函数列表 当子类继承父类时会拷贝一份虚函数列表（含有每个虚函数的指针）
+//子类中如果有相同命名的函数 就会重写给变子类中（也就是拷贝过来的虚函数列表）
+//使里面的虚函数指针指向这个从写函数(覆盖) 如果没有重写 依然指向的还是父类的函数
+
+class CFather
+{
+public:
+	virtual void AA()
+	{
+		cout << "CFather::AA" << endl;
+	}
+	virtual void BB()
+	{
+		cout << "CFather::BB" << endl;
+	}
+	virtual void CC()
+	{
+		cout << "CFather::CC" << endl;
+	}
+	 void DD()
+	{
+		cout << "CFather::DD" << endl;
+	}
+};
+
+class CSon:public CFather
+{
+public:
+	virtual void AA()
+	{
+		cout << "CSon::AA" << endl;
+	}
+	 void BB()
+	{
+		cout << "CSon::BB" << endl;
+	}
+	 void DD()
+	{
+		cout << "CSon::DD" << endl;
+	}
+               virtual void EE()
+                {
+		cout << "CSon::EE" << endl;//如果是父类调用子类对象 那么会看不到此函数在虚函数列表
+	}
+};
+
+
+int main()
+{
+	cout << sizeof(CFather) << endl;//四个字节 vfptr占四个字节 虚函数列表首地址 有虚函数的饿时候是四个 没有的话就1个 类占位置需要
+	CFather* p = new CSon;
+	CSon *s=new CSon;
+	CSon h;
+	h.DD();
+	s->DD();
+	p->AA();
+	p->BB();
+	p->CC();
+	p->DD();
+	system("pause");
+	return 0;
+}

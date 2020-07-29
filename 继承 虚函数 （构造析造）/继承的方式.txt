@@ -1,0 +1,55 @@
+//--------------------------------------------------
+#include <iostream>
+using namespace std;
+
+
+class CPerson    
+{
+public:
+	int m_nAge;
+protected:
+	int m_nSex;
+private:
+	int m_nName;
+public:
+	void Show()
+	{
+		cout << m_nAge << endl;
+		cout << m_nSex << endl;
+		cout << m_nName << endl;
+	}
+	int Get()
+	{
+		return m_nName;
+	}
+};
+//  继承的private 在子类中叫不可访问
+
+//  public继承在子类       public不变             protected不变           private不可访问
+//  protected继承在子类    public变成protected    protected不变           private不可访问
+//  private继承在子类      public变成private      protected变成private    private不可访问
+
+class CSon : public CPerson 
+{
+public:
+	void SonShow()
+	{
+		//cout << m_nAge << endl;
+		//cout << m_nSex << endl;
+		//cout << m_nName << endl; 
+	}
+};
+
+
+int main()
+{
+	cout << sizeof(CSon) << endl;
+	CSon son;
+	//cout << son.m_nAge << endl;
+	//cout << son.m_nSex << endl;
+	//cout << son.m_nName << endl;
+	son.Get();
+
+	system("pause");
+	return 0;
+}

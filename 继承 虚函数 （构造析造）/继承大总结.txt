@@ -1,0 +1,263 @@
+////继承的方法
+//#include<iostream>
+//using namespace std;
+//class CPerson
+//{
+//public:
+//	int m_nAge;
+//public:
+//	CPerson()
+//	{
+//	
+//		m_nAge=1000000;
+//	}
+//
+//};
+//class CSon:public CPerson
+//{
+//public:
+//	int m_nAge;
+//public:
+//	CSon()
+//	{
+//	
+//		m_nAge=123;
+//	}
+//
+//};
+//int main()
+//{
+//	/*CSon son;
+//	cout<<son.CPerson::m_nAge<<endl;*/
+//	CPerson ps;
+//	CSon son;
+//	
+//	ps.m_nAge=100;//100000 123
+//	son.m_nAge=100;//100000 100
+//	son.CPerson::m_nAge=1000;//100  123
+//	cout<<ps.m_nAge<<endl;//100
+//	cout<<son.m_nAge<<endl;//100
+//	cout<<son.CPerson::m_nAge<<endl;//100000
+//	cout<<son.CSon::m_nAge<<endl;//100
+//	//要看对象 根据对象来判断值改没改；
+//	system("pause");
+//	return 0;
+//}
+/////----------------------------------------------继承的构造析构
+//#include<iostream>
+//using namespace std;
+//class CPerson
+//{
+//public:
+//	CPerson()
+//	{
+//	cout<<"CPerson::ps"<<endl;
+//	
+//	}
+//	~CPerson()
+//	{
+//	cout<<"~CPerson::ps"<<endl;
+//	
+//	}
+//};
+//class CSon
+//{
+//public:
+//	CPerson ps;
+//public:
+//	CSon()
+//	{
+//
+//	cout<<"Cson::ps"<<endl;
+//	
+//	}
+//	~CSon()
+//	{
+//	cout<<"~Cson::ps"<<endl;
+//	
+//	}
+//};
+//int main()
+//{
+//	{
+//		CSon son;
+//	}
+//
+//	system("pause");
+//	return 0;
+//}
+/////---------------------------------------------重写 重载 隐藏
+//#include<iostream>
+//using namespace std;
+//void BB()
+//{
+//	cout<<"BB()"<<endl;
+//}
+//void BB(int a)
+//{
+//	cout<<"CC()"<<endl;
+//}
+//class CPerson
+//{
+//public:
+//	int a;
+//public:
+//	void BB()
+//	{
+//		cout<<"CPerson::BB()"<<endl;
+//	}
+//	void CC()
+//	{
+//		cout<<"CPerson::CC()"<<endl;
+//	}
+//};
+//class CSon:public CPerson
+//{
+//public:
+//	void BB(int a)
+//	{
+//		cout<<"CSon::BB(int a)"<<endl;
+//	}
+//	void CC()
+//	{
+//		cout<<"CSon::CC()"<<endl;
+//	}
+//	void DD()
+//	{
+//	cout<<"Cson::DD"<<endl;
+//	}
+//};
+//int main()
+//{
+//	CPerson ps;
+//		CSon son;
+//		//ps.BB();
+//		//ps.CC();
+//		
+//		BB();
+//	    BB(10);
+//
+//	
+//	son.CPerson::BB();
+//	son.CSon::BB(123);
+//
+//	son.CPerson::CC();
+//	son.CSon::CC();
+//	son.CC();
+//	son.BB(1);
+//	system("pause");
+//	return 0;
+//}
+/////------------------------------------------------------------多态
+//#include<iostream>
+//using namespace std;
+//class Warter
+//{
+//public:
+//   virtual void show()
+//  {
+//  cout<<"warter"<<endl;
+//  }
+//};
+//class CBeer:public Warter
+//{
+//public:
+//	virtual void show()
+//	{
+//	cout<<"cbeer"<<endl;
+//	}
+//
+//};
+//class Tea:public Warter
+//{
+//public:
+//	virtual void sho()
+//	{
+//	cout<<"tea"<<endl;
+//	}
+//};
+//void Botto(Warter *p)
+//{
+//	p->show();
+//	
+//}
+//
+//int main()
+//{
+//	Warter *ps1=new CBeer;
+//	Warter *ps4=new Tea;
+//	ps1->show();
+//	ps4->show();
+//	
+//	system("pause");
+//	return 0;
+//}
+////------------------------------------------------多态原理
+#include <iostream>
+using namespace std;
+//virtual  他只能多态一样名字的函数  子类中的函数需要子类指针 不能用虚函数指针 CFarter *p=new Cson；
+//父类中 一定要有virtual 子类中可有可无
+class CFather
+{
+public:
+	virtual void AA()
+	{
+		cout << "CFather::AA" << endl;
+	}
+	virtual void BB()
+	{
+		cout << "CFather::BB" << endl;
+	}
+	virtual void CC()
+	{
+		cout << "CFather::CC" << endl;
+	}
+	virtual void DD()
+	{
+	cout<<"CFather::DD"<<endl;
+	}
+	virtual void FF()
+	{
+	cout<<"CFarter::FF"<<endl;
+	}
+};
+
+class CSon:public CFather
+{
+public:
+	virtual void AA()
+	{
+		cout << "CSon::AA" << endl;
+	}
+	virtual void BB()
+	{
+		cout << "CSon::BB" << endl;
+	}
+	virtual void DD()
+
+	{
+		cout<<"CSon::DD"<<endl;
+	}
+
+
+};
+
+
+int main()
+{
+	cout << sizeof(CFather) << endl;
+
+	CFather* p = new CSon;
+	CFather* p1 = new CFather;
+	CSon *p2=new CSon;
+	CSon son;
+	son.CFather::AA();
+	
+	p->AA();
+	p->BB();
+	p->CC();
+	p2->DD();
+	p2->FF();
+	system("pause");
+	return 0;
+}

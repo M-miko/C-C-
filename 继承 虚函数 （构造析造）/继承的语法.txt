@@ -1,0 +1,92 @@
+//#include <iostream>
+//using namespace std;
+//
+////  继承的优点  提高代码的复用性
+//
+//class CPerson    //  基类（父类）
+//{
+//public:
+//	void Eat()
+//	{
+//		cout << "张的大嘴" << endl;
+//		cout << "咬两下" << endl;
+//		cout << "咽下去" << endl;
+//		cout << "出来" << endl;
+//	}
+//};
+//
+//class CSuperMan : public CPerson  //  派生类（子类）
+//{
+//public:
+//	void Fly()
+//	{
+//		cout << "CSuperMan::Fly()" << endl;
+//	}
+//};
+//
+//
+//
+//int main()
+//{
+//
+//	CPerson ps;
+//	ps.Eat();
+//
+//
+//	CSuperMan sm;
+//	sm.Eat();
+//	sm.Fly();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//-----------------------------------------------------
+#include <iostream>
+using namespace std;
+
+
+class CPerson    
+{
+public:
+	int m_nMoney;
+public:
+	CPerson()
+	{
+		m_nMoney = 10000000;
+	}
+};
+
+class CSon : public CPerson 
+{
+public:
+	int m_nMoney;
+public:
+	CSon()
+	{
+		m_nMoney = 123;
+	}
+};
+
+
+
+int main()
+{
+	cout << sizeof(CSon) << endl;
+
+	//CSon son; 
+	//cout << son.CPerson::m_nMoney << endl;   //  同名的成员  可以  类名::   区分
+	//cout << son.CSon::m_nMoney << endl;
+
+               
+	CPerson ps;                                                -----             ------
+                                                                                  |  M  |            | M    |
+	CSon son;                                                  ------            -------
+	son.CPerson::m_nMoney = 100;                                    |  继承 |
+                                                                                   父类             --------
+ 	cout << ps.m_nMoney << endl;                                     子类                  
+
+                                //两块空间互不影响    不能通过子类值 修改父类
+	system("pause");
+	return 0;
+}

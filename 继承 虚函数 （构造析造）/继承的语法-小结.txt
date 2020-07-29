@@ -1,0 +1,44 @@
+#include<iostream>
+using namespace std;
+class CPerson
+{
+public:
+	int m_nAge;
+public:
+	CPerson()
+	{
+	
+		m_nAge=1000000;
+	}
+
+};
+class CSon:public CPerson
+{
+public:
+	int m_nAge;
+public:
+	CSon()
+	{
+	
+		m_nAge=123;
+	}
+
+};
+int main()
+{
+	/*CSon son;
+	cout<<son.CPerson::m_nAge<<endl;*/
+	CPerson ps;
+	CSon son;
+	
+	ps.m_nAge=100;//100000 123
+	son.m_nAge=100;//100000 100
+	son.CPerson::m_nAge=1000;//100  123
+	cout<<ps.m_nAge<<endl;//100
+	cout<<son.m_nAge<<endl;//100
+	cout<<son.CPerson::m_nAge<<endl;//100000
+	cout<<son.CSon::m_nAge<<endl;//100
+	//要看对象 根据对象来判断值改没改；
+	system("pause");
+	return 0;
+}

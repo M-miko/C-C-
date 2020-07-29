@@ -1,0 +1,85 @@
+//--------------------------------------------------
+#include <iostream>
+using namespace std;
+//虚函数就存虚函数
+//当创建一个父类指针指向子类对象时 用虚函数就会实现多态
+//每个类中都含有一个虚函数列表 当子类继承父类时会拷贝一份虚函数列表（含有每个虚函数的指针）
+//子类中如果有相同命名的函数 就会重写给变子类中（也就是拷贝过来的虚函数列表）
+//使里面的虚函数指针指向这个从写函数(覆盖) 如果没有重写 依然指向的还是父类的函数
+
+class CFather
+{
+public:
+	virtual void AA()
+	{
+		cout << "CFather::AA" << endl;
+	}
+	virtual void BB()
+	{
+		cout << "CFather::BB" << endl;
+	}
+	virtual void CC()
+	{
+		cout << "CFather::CC" << endl;
+	}
+	 void DD()
+	{
+		cout << "CFather::DD" << endl;
+	}
+};
+
+class CSon:public CFather
+{
+public:
+	virtual void AA()
+	{
+		cout << "CSon::AA" << endl;
+	}
+	 void BB()
+	{
+		cout << "CSon::BB" << endl;
+	}
+	 void DD()
+	{
+		cout << "CSon::DD" << endl;
+	}
+               virtual void EE()
+                {
+		cout << "CSon::EE" << endl;//如果是父类调用子类对象 那么会看不到此函数在虚函数列表
+	}
+};
+
+
+int main()
+{
+	cout << sizeof(CFather) << endl;
+	CFather* p = new CSon;
+                //指针里面的vfptr  是虚函数列表数组的首地址 所以vfptr是二级地址 
+                // vfptr 占四个字节 所以取p中的前四个字节
+               *(int*)p 
+                //接下来是取每个函数指针 不能 *(int*)p++；因为是函数指针不能偏移(不知道大小）
+               int *p;
+                 p++;偏移四个
+              char *p;一个
+                 p++;
+               double*p;八个
+                 p++;
+               //因为每个函数指针占四个字节 所以只要每次移动四个就可以也就是（int *）的指针P++；
+               //所以强转成（int *）
+               ((int *)  *(int*)p+0);
+               ((int *)  *(int*)p+1);
+               ((int *)  *(int*)p+2);
+               ((int *)  *(int*)p+3);//每一个元素的地址 还得去内容
+               //取内容
+               *((int *)  *(int*)p+0);
+               *((int *)  *(int*)p+1);
+               *((int *)  *(int*)p+2);
+               *((int *)  *(int*)p+3);
+             typedef void（*PFUN）();
+             PFUN aa= *((int *)  *(int*)p+0);
+             PFUN bb= *((int *)  *(int*)p+1);
+             PFUN cc=*((int *)  *(int*)p+2);
+             PFUN dd=*((int *)  *(int*)p+3);
+                 （*aa）();
+	return 0；
+}

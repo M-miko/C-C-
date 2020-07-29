@@ -1,0 +1,55 @@
+//--------------------------------------------------
+#include <iostream>
+using namespace std;
+
+void AA()
+{
+	cout << "AA()" << endl;
+}
+void AA(int a)   //  函数重载
+{
+	cout << "AA(int a)" << endl;
+}
+
+
+class CPerson    
+{
+public:
+	void BB()
+	{
+		cout << "CPerson::BB()" << endl;
+	}
+	void CC()
+	{
+		cout << "CPerson::CC()" << endl;
+	}
+};
+
+class CSon : public CPerson
+{
+public:
+	void BB(int a)   //  隐藏
+	{
+		cout << "CSon::BB(int a)" << endl;
+	}
+	void CC()        //  重写  （名字一样，参数列表也一样）  为了给虚函数实现多态使用
+	{
+		cout << "CSon::CC()" << endl;
+	}
+};
+
+int main()
+{
+	AA();
+	AA(10);
+
+	CSon son;
+	son.CPerson::BB();
+	son.CSon::BB(123);
+
+	son.CPerson::CC();
+	son.CSon::CC();
+
+	system("pause");
+	return 0;
+}
