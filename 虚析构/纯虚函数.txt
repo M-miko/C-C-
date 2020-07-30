@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+class CFather
+{
+public:
+	virtual void Show()=0;          //  纯虚函数(抽象方法)
+};
+
+class CSon : public CFather
+{
+public:
+	virtual void Show()           //  强制派生类一定要实现
+	{
+		cout << "CSon::Show" << endl;
+	}
+};
+//  包含纯虚函数的类  是一个抽象类
+//  一个类中所有函数都是纯虚函数，这个类就叫接口类
+
+int main()
+{
+	//CFather ff;   //  包含纯虚函数的类  是一个抽象类 是不能定义对象
+
+	CFather* pp = new CSon;
+	pp->Show();
+
+	system("pause");
+	return 0;
+}

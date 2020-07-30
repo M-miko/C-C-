@@ -1,0 +1,70 @@
+//--------------------------------------------------
+#include <iostream>
+using namespace std;
+
+
+class CFather
+{
+public:
+	virtual void AA()
+	{
+		cout << "CFather::AA" << endl;
+	}
+	virtual void BB()
+	{
+		cout << "CFather::BB" << endl;
+	}
+	virtual void CC()
+	{
+		cout << "CFather::BB" << endl;
+	}
+	void DD()
+	{
+		cout << "CFather::DD" << endl;
+	}
+};
+
+class CSon:public CFather
+{
+public:
+	virtual void AA()
+	{
+		cout << "CSon::AA" << endl;
+	}
+	virtual void BB()
+	{
+		cout << "CSon::BB" << endl;
+	}
+	void DD()
+	{
+		cout << "CSon::DD" << endl;
+	}
+	virtual void EE()
+	{
+		cout << "CSon::EE" << endl;
+	}
+};
+
+
+int main()
+{
+
+	void (*pfn)();
+	typedef void(*PFUN)();
+
+
+	typedef void (*PFUN)();
+
+	cout << sizeof(CFather) << endl;
+	CFather* p = new CSon;
+	PFUN aa = (PFUN)*((int*)*(int*)p+0);
+	PFUN bb = (PFUN)*((int*)*(int*)p+1);
+	PFUN cc = (PFUN)*((int*)*(int*)p+2);
+	PFUN dd = (PFUN)*((int*)*(int*)p+3);
+	PFUN ee = (PFUN)*((int*)*(int*)p+4);
+
+
+
+	system("pause");
+	return 0;
+}
