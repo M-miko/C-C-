@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+//  结构体和类的区别   结构体 默认的访问修饰符是 public 
+//                     类     默认的访问修饰符是 private
+
+struct TPerson
+{
+	int t_nAge;
+	int t_nSex;
+	int t_nName;
+};
+
+class CPerson    //  类
+{
+public:       // 公共的  在任何一个地方都可以见到
+	int m_nAge; 
+protected:    // 保护的  本类 和 子类可以见到
+	int m_nSex;
+private:      // 只有本类中可以见到
+	int m_nName;
+public:
+	void Show()
+	{
+		cout << m_nAge << endl;
+		cout << m_nSex << endl;
+		cout << m_nName << endl;
+	}
+};
+
+
+
+int main()
+{
+	TPerson tp;
+	cout << tp.t_nAge << endl;
+	cout << tp.t_nSex << endl;
+	cout << tp.t_nName << endl;
+
+	CPerson ps;        //  对象
+	ps.Show();
+	//cout << ps.m_nAge << endl;
+	//cout << ps.m_nSex << endl;
+	//cout << ps.m_nName << endl;
+
+
+	system("pause");
+	return 0;
+}

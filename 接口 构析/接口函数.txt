@@ -1,0 +1,65 @@
+#include<iostream>
+using namespace std;
+	//结构体和类的区别
+
+
+class CPerson  //类
+{
+private:
+    //公共的 在任何一个地方都可以看到
+	int m_nAge;
+   //保护的 本类 和 子类可以看到
+	int m_nSex;
+    //只有本类中可以看到
+	int m_nName;
+public:
+	void show()
+	{
+	cout<<m_nAge<<endl;
+	cout<<m_nSex<<endl;
+	cout<<m_nName<<endl;
+	}
+	//----------------接口函数-------------------------------------------------
+public:
+	void SetAge(int nAge)
+	{
+		m_nAge=nAge;
+	}
+	void SetSex(int nSex)
+	{
+		m_nSex=nSex;
+	}
+	void SetName(int nName)
+	{
+		m_nName=nName;
+	}
+public://用它是相对的 一般用了之后就不用show
+	int GetAge()
+	{
+		return m_nAge;
+	}
+	int GetSex()
+	{
+		return m_nSex;
+	}
+	int GetName()
+	{
+		return m_nName;
+	}
+	//----------------接口函数---------------------------------------
+};
+
+
+int main()
+{
+
+	CPerson ps;
+	ps.SetAge(100);
+	ps.SetName(1);
+	ps.SetSex(2);
+	cout<<ps.GetAge()<<endl;//一般不用点show
+	
+	ps.show();
+	
+return 0;
+}

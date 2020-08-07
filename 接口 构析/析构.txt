@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+//  构造： 创建对象自动调用，给成员属性初始化，一个类中可以有多个构造，没写构造会提供一个默认的无参的构造，什么都不做
+//  析构： 对象生命周期结束自动调用，释放对象的内存空间，一个类中只有一个析构，没写析构会提供一个默认的析构函数，什么都不做
+
+
+class CPerson    //  类
+{
+private:        
+	char* m_pszName;
+public:
+	CPerson()   
+	{
+		m_pszName = new char[10];
+		strcpy_s(m_pszName,10,"小强");
+		cout << "===============================" << endl;
+	}
+	~CPerson()   //  析构函数  删除类内指针成员在堆区分配的空间
+	{           //  对象的生命周期结束的时候  自动调用的
+		delete[] m_pszName;
+		m_pszName = 0;
+		cout << "===============================" << endl;
+	}
+public:
+	void Show()
+	{
+		cout << m_pszName << endl;
+	}
+};
+
+int main()
+{
+	
+	{
+		CPerson ps;
+		ps.Show();
+	}
+	
+
+	system("pause");
+	return 0;
+}

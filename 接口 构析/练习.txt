@@ -1,0 +1,123 @@
+3、定义一个雇员类，要求其具有年龄，工龄和薪水等信息。 
+
+4、重写习题3中的雇员类，要求将类的数据成员声明为私有的，通过公有的存取访问函数来访问这些私有数据。 
+
+5、用上面定义的雇员类写一个程序，要求定义两个雇员，分别设定雇员的年龄，工龄和薪水，并把雇员的信息打印出来。
+ 
+6、你认为下面的类定义有实际意义吗，如果答案否定，说说你的理由。
+class Cat
+{
+	int GetAge();
+private:
+	int nAge;
+};
+
+7，一个计算器类的定义，请完成该类成员函数的实现。
+
+8、根据要求完善下面的CDate类定义
+class CDate
+{
+public:
+	CDate(int nYear, int nMonth, int nDay);
+	void Display();
+	void SetDate(int nYear, int nMonth, int nDay);
+	...
+	...
+	...
+};
+一个CDate对象可以用三个整数表示日、月和年（如：2009，6，1）来初始化，而且可以对日期的设置进行合法性检查。要求实现CDate类的成员变量、构造函数和其他的成员函数。
+
+
+ 
+
+//#include <iostream>
+//using namespace std;
+//
+//class CWaiter
+//{
+//private:
+//	int m_nAge;
+//	int m_nWorkYear;
+//	int m_nMoney;
+//public:
+//	void SetAge(int nAge)
+//	{
+//		m_nAge = nAge;
+//	}
+//	int GetAge()
+//	{
+//		return m_nAge;
+//	}
+//public:
+//	void Print()
+//	{
+//		cout << m_nAge << endl;
+//		cout << m_nWorkYear << endl;
+//		cout << m_nMoney << endl;
+//	}
+//};
+//
+//
+//int main()
+//{
+//	CWaiter aa;
+//	aa.SetAge(1);
+//	aa.Print();
+//
+//	CWaiter bb;
+//	bb.SetAge(2);
+//	bb.Print();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//-----------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+class CDate
+{
+private:
+	int m_nYear;
+	int m_nMonth;
+	int m_nDay;
+public:
+	CDate(int a)
+	{
+		m_nYear = 2019;
+		m_nMonth = 5;
+		m_nDay = 21;
+	}
+	~CDate()
+	{
+		cout << "没有时间了,凉了" << endl;
+	}
+public:
+	void SetDate(int nYear,int nMonth,int nDay)
+	{
+		m_nYear = nYear;
+		if(nMonth >= 1 && nMonth <= 12)
+			m_nMonth = nMonth;
+		if(nDay >= 1 && nDay <= 30)
+			m_nDay = nDay;
+	}
+	void Show()
+	{
+		cout << m_nYear << ":" << m_nMonth << ":" << m_nDay << endl;
+	}
+};
+
+
+int main()
+{
+
+	CDate date(100);
+	date.Show();
+	date.SetDate(100,1,1);
+	date.Show();
+
+	system("pause");
+	return 0;
+}

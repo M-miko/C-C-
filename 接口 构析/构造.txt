@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class CPerson    //  类
+{
+private:        
+	//--------------成员属性-------------------
+	int m_nAge;
+	bool m_nSex;
+	string m_strName;
+	//--------------成员属性-------------------
+public:
+	CPerson()   //  构造函数 是在创建对象的时候自动调用，用来给成员属性初始化
+	{
+		m_nAge = 1;
+		m_nSex = true;
+		m_strName = "宝宝";
+	}
+	CPerson(string strName) 
+	{
+		m_nAge = 1;
+		m_nSex = true;
+		m_strName = strName;
+	}
+public:
+	//--------------成员方法--------------------
+	void Show()
+	{
+		cout << m_nAge << endl;
+		cout << m_nSex << endl;
+		cout << m_strName << endl;
+	}
+	//--------------成员方法--------------------
+};
+
+int main()
+{
+	CPerson ps;          //  创建对象 一定会调用构造函数
+	ps.Show();
+
+	CPerson ps1("小明");
+	ps1.Show();
+
+
+	system("pause");
+	return 0;
+}
