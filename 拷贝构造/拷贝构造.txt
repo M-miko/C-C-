@@ -1,0 +1,47 @@
+#include<iostream>
+using namespace std;
+
+class CPerson
+{
+public:
+	int *m;
+public:
+	CPerson()
+	{
+		this->m = new int(100);
+	}
+	
+	//  拷贝构造   第一个参数是当前这个类的 const 类型的引用
+	//CPerson(const CPerson& ps)   //  拷贝构造  默认的拷贝构造是浅拷贝
+	//{
+	//	this->m = ps.m;
+	//}
+	//CPerson(const CPerson& ps)   //  拷贝构造  深拷贝
+	//{
+	//	this->m = new int(*(ps.m));
+	//}
+
+	~CPerson()//浅拷贝会崩溃  因为拷贝的是同一块地址 会造成崩溃
+	{
+		delete m;
+		m = 0;
+	}
+};
+
+
+void QQ(CPerson& pp2)//不加&号 也相当于拷贝构造 浅拷贝会崩溃 如果有 相当于引用不会拷贝构造。
+{
+
+}
+
+int main()
+{
+	//CPerson pp;
+	//CPerson pp2(pp);
+
+	CPerson pp;
+	QQ(pp);
+
+	system("pause");
+	return 0;
+}

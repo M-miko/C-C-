@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+//  空类 默认的函数有  构造，析构，拷贝构造，operator=
+
+
+
+
+class CPerson
+{
+public:
+	int* m;
+public:
+	CPerson()
+	{
+		m = new int(100);
+	}
+	~CPerson()
+	{
+		delete m;
+		m = 0;
+	}
+	//CPerson& operator=(const CPerson& ps)   //  默认 opertor= 是一个浅拷贝
+	//{
+	//	return (*this);
+	//}
+	CPerson& operator=(const CPerson& ps)
+	{
+		delete this->m;
+		this->m = 0;
+
+		this->m = new int;
+		*(this->m) = *(ps.m);
+
+		return (*this);
+	}
+};
+
+int main()
+{
+
+	CPerson ps1;
+
+	CPerson ps2;
+
+	ps2 = ps1;
+
+
+	system("pause");
+	return 0;
+}
