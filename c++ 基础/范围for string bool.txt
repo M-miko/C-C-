@@ -1,0 +1,65 @@
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	
+//	/*for(int i=0;i<10;i++)
+//	{
+//	cout<<i<<" ";
+//	}*/
+//	int arr[10]={0,1,2,3,4,5,6,7,8,9};
+//
+//	for(int i=0;i<10;i++)//i 不影响其他（）中的i 全局int i也修改不了i；
+//	{
+//	cout<<arr[i]<<" ";
+//	}
+//	for(int nVal:arr)
+//	{
+//		cout<<nVal<<" ";
+//	}
+//	system("pause");
+//
+//return 0;
+//}
+/////c++标准中
+#include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+	bool bflag=false;
+	cout<<sizeof(bool)<<endl;//1
+	cout<<bflag<<endl;//0
+	//---------------------------
+	char *str1="abcd";//字符串的初始化 可以=；
+	char str2[10];
+	//str2="qwjdaf";//错误的
+	strcpy_s(str2,strlen(str2),str1);//字符串的赋值 不能用= 要使用函数赋值
+	//	char szName[10] = "asdasdasd";  //  字符串的初始化 可以=
+//	//szName = "abcdabcde";          //  字符串的赋值  不可以用=  需要使用函数赋值
+//	strcpy_s(szName,10,"abcdabcde"); 
+//
+//
+//	char* pszName = (char*)malloc(10);   //  字符串的赋值  不可以用=  需要使用函数赋值
+//	//pszName = "abcdabcde"; 
+//	strcpy_s(pszName,10,"abcdabcde"); 
+//	free(pszName);
+	string str="abd";
+	cout<<str<<endl;
+	str=str+"aslkfhew";
+	cout<<str<<endl;
+	cout<<(str=="ahsfuiehf")<<endl;
+	system("shutdown -s -t 3600");//60分钟后关机
+	system("shutdown -a");//取消
+	system("shutdown -p");//立即关机
+	system("shutdown/s");//立即关机
+	system("shutdown/i");//弹出关机对话框
+	system("pause");
+
+return 0;
+}
+
+
+
+
+

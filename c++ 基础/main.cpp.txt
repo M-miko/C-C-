@@ -1,0 +1,13 @@
+#include<iostream>//输入输出流的文件
+using namespace std;//打开c++标准库的命名空间
+int main()
+{
+	int a=100;
+	char c='d';
+	cout<<"hello c++"<<a<<c<<endl;//输出
+	cin>>a>>c;//输入
+	cout<<a<<c<<endl;
+
+
+	return 0;
+}
