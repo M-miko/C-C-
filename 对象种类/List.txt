@@ -1,0 +1,143 @@
+#include<iostream>
+#include <string>
+using namespace std;
+
+
+//  封装的优点?    安全性，修改维护，构造析构（自动清理内存）
+//  设计原则之一   单一职责
+
+
+class CStudent
+{
+private:
+	int m_nNum;
+	string m_strName;
+public:
+	CStudent()
+	{
+		m_nNum = 0;
+		m_strName = "";
+	}
+public:
+	void SetInfo(int nNum,string strName)
+	{
+		m_nNum = nNum;
+		m_strName	= strName;
+	}
+	void Show()
+	{
+		cout << m_nNum << " " << m_strName << endl;
+	}
+};
+
+
+
+
+class CList
+{
+public:
+	struct Node
+	{
+		CStudent nValue;
+		Node* pNext;
+	};
+	Node* m_pHead;
+	Node* m_pEnd;
+	int m_nLen;
+public:
+	CList()
+	{
+		m_pHead = 0;
+		m_pEnd = 0;
+		m_nLen = 0;
+	}
+	//CList(int nLen,int nVal=0)
+	//{
+	//	m_pHead = 0;
+	//	m_pEnd = 0;
+	//	m_nLen = 0;	
+	//	//  创建  nLen 个节点的链表
+	//	for(int i=0;i<nLen;i++)
+	//		Push_Back(nVal);
+	//}
+	~CList()
+	{
+		//  清空链表
+		while(m_pHead)
+			Pop_Front();
+	}
+public:
+	void Push_Back(CStudent nVal)
+	{
+		//---------创建一个节点------------
+		Node* pNode = new Node;
+		pNode->nValue = nVal;
+		pNode->pNext = 0;
+		//---------在尾添加-----------------
+		if(m_pHead == 0)
+		{
+			m_pHead = pNode;
+			m_pEnd = pNode;
+		}
+		else
+		{
+			m_pEnd->pNext = pNode;
+			m_pEnd = pNode;
+		}
+		//-------------长度+1--------------
+		m_nLen++;
+	}
+	void Pop_Front()
+	{
+		//---------- 空---------------
+		if(m_pHead == 0)
+			return;
+		//-----------有一个-----------
+		if(m_nLen == 1)
+		{
+			delete m_pHead;
+			m_pHead = 0;
+			m_pEnd = 0;
+			m_nLen = 0;
+			return;
+		}
+		//-----------有多个-----------
+		Node* pDel = m_pHead;
+		m_pHead = m_pHead->pNext;
+		delete pDel;
+		pDel = 0;
+		m_nLen--;
+	}
+	void Print()
+	{
+		Node* pTemp = m_pHead;
+		while(pTemp)
+		{
+			pTemp->nValue.Show();   //  让学生对象 显示信息
+			pTemp = pTemp->pNext;
+		}
+		cout << " size:" << m_nLen << endl;
+	}
+};
+
+
+
+int main()
+{
+	CStudent st1;
+	st1.SetInfo(1,"haha1");
+	CStudent st2;
+	st2.SetInfo(2,"haha2");
+	CStudent st3;
+	st3.SetInfo(3,"haha3");
+
+	CList lst;
+	lst.Push_Back(st1);
+	lst.Push_Back(st2);
+	lst.Push_Back(st3);
+
+	lst.Print();
+
+	system("pause");
+	return 0;
+}

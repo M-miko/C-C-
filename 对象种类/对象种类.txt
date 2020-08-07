@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+
+class CPerson
+{
+public:
+	CPerson()
+	{
+		cout << "CPerson()" << endl;
+	}
+	~CPerson()
+	{
+		cout << "~CPerson()" << endl;
+	}
+};
+
+
+//  函数的返回值会产生临时对象
+CPerson KK()
+{
+	CPerson pp;
+	return pp;
+}
+
+//----------------全局部对象----生命周期到程序结束-------
+//CPerson ps;
+
+int main()
+{
+	//CPerson ps;
+	//ps = KK();
+
+
+	//----------------栈区的局部对象----生命周期到- }结束-------
+	//{
+	//	CPerson ps;
+	//}
+	//----------------栈区的局部对象----生命周期到- }结束-------
+
+	//----------------堆区的指针对象----生命周期遇到delete-------
+	//{
+	//	CPerson* pPerson = new CPerson;
+	//	delete pPerson;
+	//	pPerson = 0;
+	//}
+	//----------------堆区的指针对象----生命周期遇到delete-------
+
+
+	// --------------临时对象----生命周期 当前这一行----------------------
+	//cout << "========================" << endl;
+	//CPerson();
+	//cout << "========================" << endl;
+	// --------------临时对象----生命周期 当前这一行----------------------
+
+
+
+	//-------------------new delete 可以出发构造析构---malloc free 不会调用构造析构---------
+	//CPerson* pPerson = (CPerson*)malloc(sizeof(CPerson));
+	//free(pPerson);
+	//pPerson = 0;
+
+
+	system("pause");
+	return 0;
+}
